@@ -12,7 +12,7 @@ let tableName = 'scheduling-configuration',
     primaryKeyName = 'configurationId';
 let dynamodbService = new DynamodbService(tableName, primaryKeyName);
 
-let id = '1';
+let id = '0';
 dynamodbService.delete(id) // => @return Promise
 .then(createdRecord => console.log(createdRecord))
 .catch(e => console.error(e.message || 'error', e));

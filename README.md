@@ -25,7 +25,7 @@ Create node package that exposes a `DynamoDBService` along with CRUD methods.
 
 # example usage
 ```javascript
-const DynamoDBService = require('aws-dynamo');
+const DynamoDBService = require('aws-dynamo-table');
 // profile = 'not-default' // => this is the aws credentials found in `.aws/credentials` file
 let dynamoDBService = new DynamoDBService(primaryKeyName, tableName, profile);
 
@@ -54,6 +54,7 @@ aws dynamodb create-table --table-name scheduling-configuration \
   --provisioned-throughput ReadCapacityUnits=1,WriteCapacityUnits=1 \
   --query TableDescription.TableArn --output text \
   --region=us-east-1 --profile default
+# the tableName 'scheduling-configuration' can be anything
 # note the 'AttributeName', you can change 'configurationId' to whatever you want 
 ```
 

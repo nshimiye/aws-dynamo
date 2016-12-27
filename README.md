@@ -179,3 +179,5 @@ module.exports = DynamoDBService;
 # resource
 * [claudia js dynamodb example](https://github.com/claudiajs/example-projects/tree/master/dynamodb-example)
 * [aws - loading credentials](http://docs.aws.amazon.com/sdk-for-javascript/v2/developer-guide/loading-node-credentials-shared.html)
+* [aws - query tokens](http://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_Query.html)
+* [ test for alpha numeric values](http://stackoverflow.com/questions/388996/regex-for-javascript-to-allow-only-alphanumeric)

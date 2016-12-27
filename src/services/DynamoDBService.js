@@ -40,9 +40,14 @@ class DynamoDBService {
    */
   create(data) {
 
-    // pre-requisite: data[this.keyName]
+    // pre-requisite: data[this.keyName] = alpha-numeric values
     if((typeof data !== 'object') || !data[this.keyName]) { 
       return Promise.reject(`Data object must have ${this.keyName} attribute in it`); 
+    }
+
+    let pattern = new RegExp(/^[a-z0-9]+$/i);
+    if(pattern.test(data[this.keyName])) { 
+      return Promise.reject(`${this.keyName} must contain alphaNumeric values only`); 
     }
 
     let params = {
@@ -90,6 +95,61 @@ class DynamoDBService {
   delete() {
 
   }
+
+  // START extra functions
+ /**
+  * list
+  * @warning aws does not provide a way to get all records @TODO
+  * @TODO find a way to set the limit
+  * @NOTE aws limits data fetch to 1 MB
+  * @source http://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_Query.html#API_Query_RequestSyntax
+  */
+  list() {
+    let params = {
+      TableName: this.tableName,
+      FilterExpression: '#key >= :val',
+      ExpressionAttributeNames: {
+        '#key': this.keyName,
+      },
+      ExpressionAttributeValues: {
+        ':val': '.'
+      }
+    };
+    return this.dynamoDb.scan(params).promise()
+    .then(response => {
+      return response.Items;
+    });
+  }
+
+  /**
+   * @param optionParam { { key: value } } JSON with only one key-value attr
+   */
+  query(optionParam) {
+
+    // pre-requisite: data[this.keyName] = alpha-numeric values
+    if((typeof optionParam !== 'object') || Object.keys(optionParam).length !== 1) { 
+      return Promise.reject('optionParam must have one key value attribute'); 
+    }
+    let key = Object.keys(optionParam)[0];
+    let value = optionParam[key];
+
+    let params = {
+      TableName: this.tableName,
+      FilterExpression: '#key >= :val',
+      ExpressionAttributeNames: {
+        '#key': key,
+      },
+      ExpressionAttributeValues: {
+        ':val': value
+      }
+    };
+    return this.dynamoDb.scan(params).promise()
+    .then(response => {
+      return response.Items;
+    });
+  }
+  // END extra functions  
+
 }
 
 module.exports = DynamoDBService;

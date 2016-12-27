@@ -46,8 +46,8 @@ class DynamoDBService {
     }
 
     let pattern = new RegExp(/^[a-z0-9]+$/i);
-    if(pattern.test(data[this.keyName])) { 
-      return Promise.reject(`${this.keyName} must contain alphaNumeric values only`); 
+    if(!pattern.test(data[this.keyName])) { 
+      return Promise.reject(`${this.keyName} must contain alphaNumeric values only, found = ${data[this.keyName]}`); 
     }
 
     let params = {
@@ -83,9 +83,27 @@ class DynamoDBService {
   }
 
   /**
-  * Update
+  * update
+  * @param id { string } the record identifier
+  * @param data { JSON }
   */
-  update() {
+  update(id, data) {
+    // pre-requisite: id and data are defined
+    if(!id || typeof data !== 'object') { 
+      return Promise.reject(`Data object must have ${this.keyName} attribute in it`); 
+    }
+
+    return this.read(id).then(response => {
+
+      if(!!response && this.keyName in response) {
+        // clean up the data object
+        delete data[this.keyName];
+
+        let updatedObject = Object.assign({}, response, data);
+        return this.create(updatedObject);
+      }
+      return Promise.reject('Record not found');
+    });
 
   }
 

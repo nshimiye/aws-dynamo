@@ -1,6 +1,6 @@
 {
   "name": "aws-dynamo-table",
-  "version": "1.0.0",
+  "version": "1.5.0",
   "description": "Managing records saved in Dynamodb",
   "main": "index.js",
   "scripts": {

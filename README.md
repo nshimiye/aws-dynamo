@@ -27,7 +27,7 @@ Create node package that exposes a `DynamoDBService` along with CRUD methods.
 ```javascript
 const DynamoDBService = require('dynamodb-service');
 // profile = 'not-default' // => this is the aws credentials found in `.aws/credentials` file
-let dynamoDBService = new DynamoDBService(primaryKeyName, tableName, profile);
+let dynamoDBService = new DynamoDBService(tableName, primaryKeyName, profile);
 
 dynamoDBService.create(data) // => @return Promise
 ```

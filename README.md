@@ -4,7 +4,7 @@
 @Last modified by:   mars
 @Last modified time: 2016-12-26T19:38:44-05:00
 -->
-# aws-dynamo-table
+# dynamodb-service
 Managing records saved in Dynamodb
 
 # Scenario
@@ -25,7 +25,7 @@ Create node package that exposes a `DynamoDBService` along with CRUD methods.
 
 # example usage
 ```javascript
-const DynamoDBService = require('aws-dynamo-table');
+const DynamoDBService = require('dynamodb-service');
 // profile = 'not-default' // => this is the aws credentials found in `.aws/credentials` file
 let dynamoDBService = new DynamoDBService(primaryKeyName, tableName, profile);
 
@@ -62,14 +62,14 @@ aws dynamodb create-table --table-name scheduling-configuration \
 # Step by step 
 The TDD way
 
-* Create aws-dynamo-table
+* Create dynamodb-service
 ```sh
-mkdir aws-dynamo-table
+mkdir dynamodb-service
 ```
 
 * add initial npm packge files
 ```sh
-cd aws-dynamo-table && npm init
+cd dynamodb-service && npm init
 // follow the prompt and provide all required info
 ```
 

@@ -1,0 +1,27 @@
+{
+  "name": "aws-dynamo",
+  "version": "1.0.0",
+  "description": "Managing records saved in Dynamodb",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo 'NOT implemented'"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nshimiye/aws-dynamo.git"
+  },
+  "keywords": [
+    "aws",
+    "dynamodb",
+    "database"
+  ],
+  "author": "Marcellin <nmarcellin2@gmail.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/nshimiye/aws-dynamo/issues"
+  },
+  "homepage": "https://github.com/nshimiye/aws-dynamo#readme",
+  "dependencies": {
+    "aws-sdk": "^2.7.19"
+  }
+}

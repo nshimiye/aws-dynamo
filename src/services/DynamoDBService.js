@@ -19,16 +19,16 @@ class DynamoDBService {
    * @param extra { { region: string } } optoinal
    */
   constructor(tableName, primaryKeyName, profile, extra) {
-    profile = profile || 'default';
     extra = extra || { region: 'us-east-1' };
+
+    if(profile) {
+      let credentials = new AWS.SharedIniFileCredentials({profile});
+      AWS.config.credentials = credentials;
+    }
+    AWS.config.region = extra.region;
 
     this.tableName = tableName;
     this.keyName = primaryKeyName;
-
-    let credentials = new AWS.SharedIniFileCredentials({profile});
-    AWS.config.credentials = credentials;
-    AWS.config.region = extra.region;
-
     this.dynamoDb = new AWS.DynamoDB.DocumentClient();
 
   }

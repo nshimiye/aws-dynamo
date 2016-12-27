@@ -85,8 +85,9 @@ mkdir test
 // ./test/create.test.js 
 
 let DynamoDBService = require('../index.js');
-let tableName = '', primaryKeyName = '', profile = 'default';
-let dynamoDBService = new DynamoDBService(tableName, primaryKeyName, profile);
+let tableName = 'scheduling-configuration',
+    primaryKeyName = 'configurationId';
+let dynamodbService = new DynamodbService(tableName, primaryKeyName);
 
 let data = {
   recurrence: 'string',
@@ -142,6 +143,11 @@ module.exports = DynamoDBService;
 * Add logic for create method
 ```javascript
 // ./src/services/DynamoDBService.js
+
+...
+
+...
+
 ```
 
 

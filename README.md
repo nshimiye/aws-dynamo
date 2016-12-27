@@ -105,6 +105,7 @@ dynamoDBService.create(data)
 * Run the test 
 ```sh 
 # you should get errors
+node test/create.test.js
 ```
 
 * Create and add logic to the `index.js` file
@@ -145,11 +146,34 @@ module.exports = DynamoDBService;
 // ./src/services/DynamoDBService.js
 
 ...
-
+    let params = {
+      TableName: this.tableName,
+      Item: data
+    };
+    return this.dynamoDb.put(params).promise()
+    .then((/* success */) => this.read(data[this.keyName]));
 ...
 
 ```
 
+* Add logic for read method
+```javascript
+// ./src/services/DynamoDBService.js
+
+...
+    let Key = {};
+    Key[this.keyName] = id;
+    let params = {
+      TableName: this.tableName,
+      Key
+    };
+    return this.dynamoDb.get(params).promise()
+    .then(function (response) {
+      return response.Item;
+    });
+...
+
+```
 
 # resource
 * [claudia js dynamodb example](https://github.com/claudiajs/example-projects/tree/master/dynamodb-example)

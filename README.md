@@ -4,7 +4,7 @@
 @Last modified by:   mars
 @Last modified time: 2016-12-26T19:38:44-05:00
 -->
-# aws-dynamo
+# aws-dynamo-table
 Managing records saved in Dynamodb
 
 # Scenario
@@ -61,11 +61,14 @@ aws dynamodb create-table --table-name scheduling-configuration \
 # Step by step 
 The TDD way
 
-* Create aws-dynamo
+* Create aws-dynamo-table
+```sh
+mkdir aws-dynamo-table
+```
 
 * add initial npm packge files
 ```sh
-cd aws-dynamo && npm init
+cd aws-dynamo-table && npm init
 // follow the prompt and provide all required info
 ```
 

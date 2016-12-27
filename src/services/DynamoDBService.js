@@ -90,7 +90,7 @@ class DynamoDBService {
   update(id, data) {
     // pre-requisite: id and data are defined
     if(!id || typeof data !== 'object') { 
-      return Promise.reject(`Data object must have ${this.keyName} attribute in it`); 
+      return Promise.reject('Both id and data parameters are required'); 
     }
 
     return this.read(id).then(response => {
@@ -108,9 +108,35 @@ class DynamoDBService {
   }
 
   /**
-  * Delete
+  * Deleted
+  * @param id { string } The primaryKey that presents the saved records
+  * @return { Promise<any> } resolve with the deleted object
   */
-  delete() {
+  delete(id) {
+
+    return this.read(id).then(response => {
+
+      if(!!response && this.keyName in response) {
+
+        let Key = {};
+        Key[this.keyName] = response[this.keyName];
+
+        let params = {
+          TableName: this.tableName,
+          Key
+        };
+
+        // return a completely different result when dynamo completes
+        return this.dynamoDb.delete(params).promise()
+        .then((/* success */) =>  response );
+
+      }
+      return Promise.reject('Record not found');
+    });
+
+
+
+
 
   }
 
